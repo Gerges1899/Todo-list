@@ -1,0 +1,13 @@
+{
+  "Culture": "en",
+  "Texts": {
+    "AppName": "TodoListApp",
+    "Menu:Home": "Home",
+    "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information visit",
+    "Welcome": "Welcome",
+    "TodoApp:001": "Todo Not Found!",
+    "TodoApp:002": "Todo Id Is Empty!",
+    "TodoApp:003": "Todo Title Is Empty!",
+    "TodoApp:004": "Todo Title Exceeds Length!",
+  }
+}

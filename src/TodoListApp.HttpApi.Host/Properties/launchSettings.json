@@ -1,0 +1,28 @@
+{
+  "profiles": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "TodoListApp.HttpApi.Host": {
+      "commandName": "Project",
+      "workingDirectory": "E:\\TodoApp\\Backend\\src\\TodoListApp.HttpApi.Host",
+      "launchBrowser": true,
+      "launchUrl": "https://localhost:44362/swagger/index.html",
+      "applicationUrl": "https://localhost:44362",
+      "nativeDebugging": true,
+      "sqlDebugging": true
+    }
+  },
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "https://localhost:44362",
+      "sslPort": 44362
+    }
+  }
+}

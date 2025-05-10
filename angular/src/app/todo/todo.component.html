@@ -1,0 +1,110 @@
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col d-flex justify-content-between align-items-center">
+            <h3 class="text-header">{{ ('::TodoList' | abpLocalization) }}</h3>
+            <button class="btn btn-success" [routerLink]="'../create-todo'">
+                <i class="fas fa-plus me-1"></i> {{ ('::AddItem' | abpLocalization) }}
+            </button>
+        </div>
+    </div>
+
+    <div class="card p-3 mb-4">
+        <form [formGroup]="todoFilterForm" class="row g-3">
+            <div class="col-md-4">
+                <label for="searchText" class="form-label">{{ '::Search' | abpLocalization }}</label>
+                <input type="text" id="searchText" formControlName="searchText" class="form-control" />
+            </div>
+
+            <div class="col-md-4">
+                <label for="status" class="form-label">{{ '::Status' | abpLocalization }}</label>
+                <select id="status" formControlName="status" class="form-select">
+                    <option value="0">{{ '::Pending' | abpLocalization }}</option>
+                    <option value="1">{{ '::InProgress' | abpLocalization }}</option>
+                    <option value="2">{{ '::Completed' | abpLocalization }}</option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label for="priority" class="form-label">{{ '::Priority' | abpLocalization }}</label>
+                <select id="priority" formControlName="priority" class="form-select">
+                    <option value="0">{{ '::Low' | abpLocalization }}</option>
+                    <option value="1">{{ '::Medium' | abpLocalization }}</option>
+                    <option value="2">{{ '::High' | abpLocalization }}</option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label for="from" class="form-label">{{ '::StartDate' | abpLocalization }}</label>
+                <input type="date" id="from" formControlName="from" class="form-control" />
+            </div>
+
+            <div class="col-md-4">
+                <label for="to" class="form-label">{{ '::EndDate' | abpLocalization }}</label>
+                <input type="date" id="to" formControlName="to" class="form-control" />
+            </div>
+
+            <div class="col-md-4 d-flex align-items-end gap-2">
+                <button type="submit" (click)="getTodoList()" class="btn btn-primary w-50">
+                    {{ '::Search' | abpLocalization }}
+                </button>
+                <button type="button" (click)="resetFilter()" class="btn btn-secondary w-50">
+                    {{ '::Reset' | abpLocalization }}
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="card p-3">
+        <ngx-datatable data-testid="Uploadeddata-table" class="table-admin bootstrap" [rows]="todoList"
+            [count]="ListTodo.totalCount" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+            [rowHeight]="'auto'">
+            <ngx-datatable-column [name]="'::Title' | abpLocalization" prop="title" [width]="200">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{ row.title }}
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column [name]="'::Description' | abpLocalization" prop="description" [width]="300">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{ row.description }}
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column [name]="'::Status' | abpLocalization" prop="status">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    <span [innerHTML]="row.status | statusLabel"></span>
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column [name]="'::Priority' | abpLocalization" prop="priority">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    <span [innerHTML]="row.priority | priorityLabel"></span>
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column [name]="'::DueDate' | abpLocalization" prop="dueDate" [width]="150">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{ row.dueDate | date: 'dd/MM/yyyy' }}
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column [name]="'::Actions' | abpLocalization" [sortable]="false" [canAutoResize]="false"
+                [width]="160">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    <button class="btn btn-sm btn-primary me-1" title="{{ '::Edit' | abpLocalization }}"
+                        [routerLink]="'/edit-todo/' + row.id">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger me-1" title="{{ '::Delete' | abpLocalization }}"
+                        (click)="onDelete(row)">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                    <button class="btn btn-sm btn-success" title="{{ '::MarkAsComplete' | abpLocalization }}"
+                        (click)="onMarkComplete(row)">
+                        <i class="fas fa-check-circle"></i>
+                    </button>
+                </ng-template>
+            </ngx-datatable-column>
+        </ngx-datatable>
+    </div>
+</div>
